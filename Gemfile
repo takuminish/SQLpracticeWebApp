@@ -8,3 +8,4 @@ end
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'mysql2'
+gem 'dotenv'
