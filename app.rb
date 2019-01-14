@@ -8,9 +8,8 @@ require 'erb'
 class SQLApplication < Sinatra::Base
 
 Dotenv.load
-yaml_file = File.read("database.yml")
+yaml_file = File.read("./database.yml")
 sql_client = Mysql2::Client.new(YAML.load(ERB.new(yaml_file).result))
-
   
   get '/' do
     'Welcome to Sinatra!!'
