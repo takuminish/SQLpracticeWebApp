@@ -13,12 +13,9 @@ class SQLApplication < Sinatra::Base
  
   get '/' do
     @text = 'Welcome to Sinatra!!'
-    query = "select * from test1"
+    query = "select * from Aqours"
     begin
-      result = sql_client.query(query)
-#      result.each do |a|
-#        output =  a["text"]
-#      end
+      @result = sql_client.query(query)
     rescue
       @text = 'mysql error!'
     end

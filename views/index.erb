@@ -1,1 +1,16 @@
-<h1><%= @text %></h1>
+<table class="table is-bordered is-striped is-narrow is-hoverable">
+  <thead>
+    <td>id</td>
+    <td>name</td>
+    <td>age</td>
+    <td>grade</td>
+  </thead>
+<% @result.each do |columns| %>
+  <tr>
+    <td><%= columns["id"] %></td>
+    <td><%= columns["name"] %></td>
+    <td><%= columns["age"] %></td>
+    <td><%= columns["grade"] %></td>
+  <tr>
+<% end %>
+</table>
