@@ -24,4 +24,9 @@ class SQLApplication < Sinatra::Base
     return output
 =end
   end
+
+  get '/freesql' do
+    @text = 'freesql'
+    erb :freesql
+  end
 end
