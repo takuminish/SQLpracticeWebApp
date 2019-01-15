@@ -14,15 +14,16 @@ class SQLApplication < Sinatra::Base
   get '/' do
     @text = 'Welcome to Sinatra!!'
     erb :index
-=begin
     query = "select * from test1"
-    output = ""
-    result = sql_client.query(query)
-    result.each do |a|
-      output =  a["text"]
-    end      
-    return output
-=end
+    begin
+      result = sql_client.query(query)
+#      result.each do |a|
+#        output =  a["text"]
+#      end
+    rescue
+      @text = 'mysql error!'
+    end
+
   end
 
   get '/freesql' do
