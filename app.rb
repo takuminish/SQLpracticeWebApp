@@ -13,7 +13,6 @@ class SQLApplication < Sinatra::Base
  
   get '/' do
     @text = 'Welcome to Sinatra!!'
-    erb :index
     query = "select * from test1"
     begin
       result = sql_client.query(query)
@@ -23,7 +22,7 @@ class SQLApplication < Sinatra::Base
     rescue
       @text = 'mysql error!'
     end
-
+    erb :index
   end
 
   get '/freesql' do
