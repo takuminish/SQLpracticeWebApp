@@ -12,7 +12,8 @@ yaml_file = File.read("./database.yml")
 sql_client = Mysql2::Client.new(YAML.load(ERB.new(yaml_file).result))
   
   get '/' do
-    'Welcome to Sinatra!!'
+    @text = 'Welcome to Sinatra!!'
+=begin
     query = "select * from test1"
     output = ""
     result = sql_client.query(query)
@@ -20,5 +21,6 @@ sql_client = Mysql2::Client.new(YAML.load(ERB.new(yaml_file).result))
       output =  a["text"]
     end
     return output
+=end
   end
 end
