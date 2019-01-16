@@ -13,9 +13,15 @@ class SQLApplication < Sinatra::Base
  
   get '/' do
     @text = 'Welcome to Sinatra!!'
-    query = "select * from Aqours"
+    query = "select id,name from Aqours"
     begin
-      @result = sql_client.query(query)
+      result = sql_client.query(query)
+      @column_name = []
+      @rows = []
+      result.each do |row| 
+        @column_name = row.keys
+        @rows << row.values
+      end
     rescue
       @text = 'mysql error!'
     end

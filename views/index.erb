@@ -1,16 +1,15 @@
 <table class="table is-bordered is-striped is-narrow is-hoverable">
   <thead>
-    <td>id</td>
-    <td>name</td>
-    <td>age</td>
-    <td>grade</td>
+  <% @column_name.each do |cn| %>
+    <td><%= cn %></td>
+    <% end %>
   </thead>
-<% @result.each do |columns| %>
+  <% @rows.each do |row| %>
   <tr>
-    <td><%= columns["id"] %></td>
-    <td><%= columns["name"] %></td>
-    <td><%= columns["age"] %></td>
-    <td><%= columns["grade"] %></td>
+  <% row.each do |field| %>
+      <td><%= field %></td>
+    <% end %>
   <tr>
-<% end %>
+  <% end %>
+  
 </table>
