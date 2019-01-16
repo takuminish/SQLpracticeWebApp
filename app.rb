@@ -12,7 +12,11 @@ class SQLApplication < Sinatra::Base
   sql_client = Mysql2::Client.new(YAML.load(ERB.new(yaml_file).result))
  
   get '/' do
-    query = "select id,name from Aqours"
+
+  end
+
+  get '/freesql' do
+    query = "select * from Aqours"
     begin
       result = sql_client.query(query)
       @column_name = []
@@ -24,10 +28,10 @@ class SQLApplication < Sinatra::Base
     rescue
       @text = 'mysql error!'
     end
-    erb :index
+    erb :freesql
   end
 
-  post '/' do
+  post '/freesql' do
     query = @params[:sqlquery]
     begin
       result = sql_client.query(query)
@@ -40,10 +44,7 @@ class SQLApplication < Sinatra::Base
     rescue
       @text = 'mysql error!'
     end
-    erb :index
-  end
-  get '/freesql' do
-    @text = 'freesql'
     erb :freesql
   end
+  
 end
