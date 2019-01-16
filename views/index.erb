@@ -1,3 +1,4 @@
+<% unless @rows.nil? %>
 <table class="table is-bordered is-striped is-narrow is-hoverable">
   <thead>
   <% @column_name.each do |cn| %>
@@ -11,8 +12,13 @@
     <% end %>
   <tr>
   <% end %>
-  
 </table>
+<% else %>
+<div class="notification is-danger">
+  <button class="delete"></button>
+  SQL文が間違っています。
+</div>
+<% end %>
 
 <form action="/" method="post">
   <div class="field is-horizontal">
