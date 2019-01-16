@@ -27,6 +27,21 @@ class SQLApplication < Sinatra::Base
     erb :index
   end
 
+  post '/' do
+    query = @params[:sqlquery]
+    begin
+      result = sql_client.query(query)
+      @column_name = []
+      @rows = []
+      result.each do |row| 
+        @column_name = row.keys
+        @rows << row.values
+      end
+    rescue
+      @text = 'mysql error!'
+    end
+    erb :index
+  end
   get '/freesql' do
     @text = 'freesql'
     erb :freesql
