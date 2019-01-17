@@ -16,8 +16,13 @@ class SQLApplication < Sinatra::Base
   end
 
   get '/problems' do
-
-
+    query = "select * from Problems"
+    begin
+      @result = sql_client.query(query)
+    rescue
+      @text = 'mysql error!'
+    end
+    erb :problems
   end
   
   get '/freesql' do
