@@ -15,6 +15,11 @@ class SQLApplication < Sinatra::Base
 
   end
 
+  get '/problems' do
+
+
+  end
+  
   get '/freesql' do
     query = "select * from Aqours"
     begin
