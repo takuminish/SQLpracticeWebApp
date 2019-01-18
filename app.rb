@@ -80,9 +80,9 @@ class SQLApplication < Sinatra::Base
   get '/freesql' do
     query = "select * from Aqours"
     begin
-      @result = sql_client.query(query)
+      result = sql_client.query(query)
       @column_name = []
-      @prows = []
+      @rows = []
       result.each do |row| 
         @column_name = row.keys
         @rows << row.values
