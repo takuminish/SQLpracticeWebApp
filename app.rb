@@ -12,7 +12,7 @@ class SQLApplication < Sinatra::Base
   sql_client = Mysql2::Client.new(YAML.load(ERB.new(yaml_file).result))
  
   get '/' do
-
+    erb :index
   end
 
   get '/problems' do
