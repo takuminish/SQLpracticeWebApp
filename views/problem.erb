@@ -1,0 +1,49 @@
+<h3 class="title is-3">  <%= @problem["title"] %> </h3>
+
+<%= @problem["statement"] %>
+
+<table class="table is-bordered is-striped is-narrow is-hoverable">
+    <thead>
+      <% @answer_column.each do |cn| %>
+        <td><%= cn %></td>
+      <% end %>
+    </thead>
+    <% @answer_rows.each do |row| %>
+    <tr>
+      <% row.each do |field| %>
+        <td><%= field %></td>
+      <% end %>
+    <tr>
+    <% end %>
+</table>
+
+<% unless @player_column.nil? %>
+<table class="table is-bordered is-striped is-narrow is-hoverable">
+    <thead>
+      <% @player_column.each do |cn| %>
+        <td><%= cn %></td>
+      <% end %>
+    </thead>
+    <% @player_rows.each do |row| %>
+    <tr>
+      <% row.each do |field| %>
+        <td><%= field %></td>
+      <% end %>
+    <tr>
+    <% end %>
+</table>
+<% end %>
+<form action="/problems/<%= @id %>" method="post">
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="field">
+        <p class="control is-expanded">
+        <input class="input" type="text" placeholder="SQL文入力" name="sqlquery">
+      </div>
+      <div class="field">
+        <p class="control">
+          <input type="submit" value="SQL実行" class="button is-primary">
+      </div>
+    </div>
+  </div>
+</form>
