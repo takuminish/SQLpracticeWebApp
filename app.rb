@@ -24,7 +24,19 @@ class SQLApplication < Sinatra::Base
     end
     erb :problems
   end
-  
+
+  get '/problems/:id' do
+    query = "select * from Problems where id=?"
+    begin
+      @result = sql_client.prepare(query).execute(params[:id])
+      @result.each do |a|
+        p a
+      end
+      "#{@result}"
+    rescue
+      @text = 'mysql error!'
+    end
+  end
   get '/freesql' do
     query = "select * from Aqours"
     begin
