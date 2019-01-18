@@ -1,8 +1,8 @@
 <h3 class="title is-3">  <%= @problem["title"] %> </h3>
 
 <%= @problem["statement"] %>
-
-<table class="table is-bordered is-striped is-narrow is-hoverable">
+<div class="result">
+<table class="table is-bordered is-striped is-narrow is-hoverable answer-result">
     <thead>
       <% @answer_column.each do |cn| %>
         <td><%= cn %></td>
@@ -18,7 +18,7 @@
 </table>
 
 <% unless @player_column.nil? %>
-<table class="table is-bordered is-striped is-narrow is-hoverable">
+<table class="table is-bordered is-striped is-narrow is-hoverable player-result">
     <thead>
       <% @player_column.each do |cn| %>
         <td><%= cn %></td>
@@ -33,6 +33,10 @@
     <% end %>
 </table>
 <% end %>
+</div>
+
+
+
 <form action="/problems/<%= @id %>" method="post">
   <div class="field is-horizontal">
     <div class="field-body">

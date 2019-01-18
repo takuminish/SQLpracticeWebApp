@@ -1,0 +1,15 @@
+.result {
+    display: table;
+    padding-bottom: 50px;
+
+}
+
+.answer-result {
+    display: table-cell;
+    padding-right: 30px;
+}
+
+.player-result {
+    display: table-cell;
+    padding-right: 30px;
+}

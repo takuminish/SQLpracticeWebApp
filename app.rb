@@ -37,7 +37,7 @@ class SQLApplication < Sinatra::Base
       @answer_column = []
       @answer_rows = []
       answer.each do |row| 
-        @answer_colunm = row.keys
+        @answer_column = row.keys
         @answer_rows << row.values
       end
 
