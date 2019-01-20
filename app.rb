@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'sinatra'
 require 'sinatra/reloader'
 require 'mysql2'
@@ -20,7 +21,7 @@ class SQLApplication < Sinatra::Base
     begin
       @result = sql_client.query(query)
     rescue
-      @text = 'mysql error!'
+      @error = 'SQL文が間違っています。'
     end
     erb :problems
   end
@@ -28,6 +29,7 @@ class SQLApplication < Sinatra::Base
   get '/problems/:id' do
     query = "select * from Problems where id=?"
     @id=params[:id]
+
     begin
       @result = sql_client.prepare(query).execute(params[:id])
       @result.each do |a|
@@ -42,7 +44,7 @@ class SQLApplication < Sinatra::Base
       end
 
     rescue
-      @text = 'mysql error!'
+      @error = 'SQL文が間違っています。'
     end
 
     erb :problem
@@ -51,8 +53,10 @@ class SQLApplication < Sinatra::Base
 
   post '/problems/:id' do
     @id = params[:id]
+
     begin
       query = "select * from Problems where id=?"
+
       @result = sql_client.prepare(query).execute(params[:id])
       @result.each do |a|
         @problem = a
@@ -64,19 +68,29 @@ class SQLApplication < Sinatra::Base
         @answer_column = row.keys
         @answer_rows << row.values
       end
-      result = sql_client.query(params["sqlquery"])
-      @player_column = []
-      @player_rows = []
-      result.each do |row| 
-        @player_column = row.keys
-        @player_rows << row.values
-      end
     rescue
-      @text = 'mysql error!'
+      @error = 'SQL文が間違っています。'
     end
-     
+      
+    unless validation_sql(params["sqlquery"])
+      @error = "SELECT文以外は使えません。"
+      erb :problem
+    else
+      begin
+        result = sql_client.query(params["sqlquery"])
+        @player_column = []
+        @player_rows = []
+        result.each do |row| 
+          @player_column = row.keys
+          @player_rows << row.values
+        end
+      rescue
+        @error = 'SQL文が間違っています。'
+      end
+    end
     erb :problem
   end
+  
   get '/freesql' do
     query = "select * from Aqours"
     begin
@@ -88,33 +102,45 @@ class SQLApplication < Sinatra::Base
         @rows << row.values
       end
     rescue
-      @text = 'mysql error!'
+      @error = 'SQL文が間違っています。'
     end
     erb :freesql
   end
 
   post '/freesql' do
     query = @params[:sqlquery]
-    begin
-      result = sql_client.query(query)
-      @column_name = []
-      @rows = []
-      result.each do |row| 
-        @column_name = row.keys
-        @rows << row.values
+    unless validation_sql(query)
+      @error = "SELECT文以外は使えません。"
+      erb :freesql
+
+    else
+      begin
+        unless validation_sql(query)
+          @error = "SELECT文以外は使えません。"
+          return
+        end
+        result = sql_client.query(query)
+        @column_name = []
+        @rows = []
+        result.each do |row| 
+          @column_name = row.keys
+          @rows << row.values
+        end
+      rescue
+        @error = 'SQL文が間違っています。'
       end
-    rescue
-      @text = 'mysql error!'
     end
     erb :freesql
   end
 
   def validation_sql(query) 
-    return false if '\.*insert.*\i' == query
-    return false if '\.*delete.*\i' == query
-    return false if '\.*update.*\i' == query
-    return false if '\.*create.*\i' == query
-    return false if '\.*drop.*\i' == query
-    return false if '\.*show.*\i' == query
+    return false if /.*insert.*/i === query
+    return false if /.*delete.*/i === query
+    return false if /.*update.*/i === query
+    return false if /.*create.*/i === query
+    return false if /.*drop.*/i === query
+    return false if /.*show.*/i === query
+    return true
   end
+  
 end
