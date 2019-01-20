@@ -108,5 +108,13 @@ class SQLApplication < Sinatra::Base
     end
     erb :freesql
   end
-  
+
+  def validation_sql(query) 
+    return false if '\.*insert.*\i' == query
+    return false if '\.*delete.*\i' == query
+    return false if '\.*update.*\i' == query
+    return false if '\.*create.*\i' == query
+    return false if '\.*drop.*\i' == query
+    return false if '\.*show.*\i' == query
+  end
 end
