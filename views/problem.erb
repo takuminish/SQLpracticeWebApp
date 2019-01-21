@@ -34,7 +34,9 @@
 </table>
 <% else %>
   <% unless @error.nil? %>
-    <%= @error %>
+    <div class="notification is-danger">
+      <%= @error %>
+    </div>
   <% end %>
 <% end %>
 </div>
