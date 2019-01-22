@@ -1,47 +1,51 @@
-<h3 class="title is-3">  <%= @problem["title"] %> </h3>
-
-<%= @problem["statement"] %>
-<div class="result">
-<table class="table is-bordered is-striped is-narrow is-hoverable answer-result">
-    <thead>
-      <% @answer_column.each do |cn| %>
-        <td><%= cn %></td>
-      <% end %>
-    </thead>
-    <% @answer_rows.each do |row| %>
-    <tr>
-      <% row.each do |field| %>
-        <td><%= field %></td>
-      <% end %>
-    <tr>
-    <% end %>
-</table>
-
-<% unless @player_column.nil? %>
-<table class="table is-bordered is-striped is-narrow is-hoverable player-result">
-    <thead>
-      <% @player_column.each do |cn| %>
-        <td><%= cn %></td>
-      <% end %>
-    </thead>
-    <% @player_rows.each do |row| %>
-    <tr>
-      <% row.each do |field| %>
-        <td><%= field %></td>
-      <% end %>
-    <tr>
-    <% end %>
-</table>
-<% else %>
-  <% unless @error.nil? %>
-    <div class="notification is-danger">
-      <%= @error %>
-    </div>
-  <% end %>
-<% end %>
+<h3 class="problem-title">  <%= @problem["title"] %> </h3>
+<div class="problem-statement">
+  <%= @problem["statement"] %>
 </div>
-
-
+<div class="result">
+  <div class="answer-result">
+    <span class="answer-result-title">正答</span>
+    <table class="table is-bordered is-striped is-narrow is-hoverable answer-result-table">
+      <thead>
+        <% @answer_column.each do |cn| %>
+          <td><%= cn %></td>
+        <% end %>
+      </thead>
+      <% @answer_rows.each do |row| %>
+        <tr>
+          <% row.each do |field| %>
+            <td><%= field %></td>
+          <% end %>
+        <tr>
+      <% end %>
+    </table>
+  </div>
+  <% unless @player_column.nil? %>
+    <div class="player-result">
+      <span class="player-result-title">あなたの解答</span>
+      <table class="table is-bordered is-striped is-narrow is-hoverable player-table">
+        <thead>
+          <% @player_column.each do |cn| %>
+            <td><%= cn %></td>
+          <% end %>
+        </thead>
+        <% @player_rows.each do |row| %>
+          <tr>
+            <% row.each do |field| %>
+              <td><%= field %></td>
+            <% end %>
+          <tr>
+        <% end %>
+      </table>
+    </div>
+  <% else %>
+    <% unless @error.nil? %>
+      <div class="notification is-danger">
+        <%= @error %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 
 <form action="/problems/<%= @id %>" method="post">
   <div class="field is-horizontal">

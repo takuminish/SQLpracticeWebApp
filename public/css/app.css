@@ -22,8 +22,15 @@ body {
     float: left;
 }
 
+.problem-statement {
+    width: 50%;
+    float: left
+}
+
 .result {
     display: table;
+    border-collapse: separate;
+    border-spacing: 30px 0;
     padding-bottom: 50px;
 
 }
@@ -55,10 +62,33 @@ body {
 
 .answer-result {
     display: table-cell;
-    padding-right: 30px;
+    padding: 20px;
+    border: solid;
+    position: relative;
 }
 
 .player-result {
     display: table-cell;
-    padding-right: 30px;
+    padding: 20px;
+    border: solid;
+    position: relative;
 }
+
+.answer-result-title {
+    position: absolute;
+    top: -30px;
+    
+}
+
+.player-result-title {
+    position: absolute;
+        top: -30px;
+}
+
+.problem-title {
+    margin-top: 30px;
+    margin-bottom: 60px;
+    border-bottom: solid;
+    width: 60%;
+    font-size: 30px;
+    font-weight: bold;
