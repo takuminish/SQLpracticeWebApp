@@ -143,5 +143,5 @@ class SQLApplication < Sinatra::Base
     return false if /.*union.*/i === query
     return true
   end
-  
+    
 end
