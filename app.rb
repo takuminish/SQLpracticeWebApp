@@ -89,7 +89,13 @@ class SQLApplication < Sinatra::Base
       end
     end
     unless @params[:correct].nil?
-      p "correct"  if answer_check(@answer_rows,@player_rows) 
+      if answer_check(@answer_rows,@player_rows)
+        @correct = true
+        @correct_message = "正答です。"
+      else
+        @correct = false
+        @correct_message = "誤答です。"
+      end
     end
     erb :problem
   end

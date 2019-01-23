@@ -1,3 +1,14 @@
+<% unless @correct.nil? %>
+  <% if @correct %>
+    <div class="notification is-success">
+      <%= @correct_message %>
+    </div>
+  <% else %> 
+    <div class="notification is-danger">
+      <%= @correct_message %>
+    </div>
+  <% end %>
+<% end %>
 <h3 class="problem-title">  <%= @problem["title"] %> </h3>
 <div class="problem-statement">
   <%= @problem["statement"] %>
