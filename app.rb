@@ -140,6 +140,7 @@ class SQLApplication < Sinatra::Base
     return false if /.*create.*/i === query
     return false if /.*drop.*/i === query
     return false if /.*show.*/i === query
+    return false if /.*union.*/i === query
     return true
   end
   
