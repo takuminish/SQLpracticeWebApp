@@ -88,6 +88,9 @@ class SQLApplication < Sinatra::Base
         @error = 'SQL文が間違っています。'
       end
     end
+    unless @params[:correct].nil?
+      p "correct"  if answer_check(@answer_rows,@player_rows) 
+    end
     erb :problem
   end
   
@@ -142,6 +145,14 @@ class SQLApplication < Sinatra::Base
     return false if /.*show.*/i === query
     return false if /.*union.*/i === query
     return true
+  end
+
+  def answer_check(correct_answer,player_answer)
+     if @player_rows == @answer_rows
+        return true
+     end
+     
+     return false
   end
     
 end
