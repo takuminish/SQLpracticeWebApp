@@ -1,4 +1,4 @@
-<h1 class="title is-1">問題一覧</h1>
+<h1 class="title is-1">Problem List</h1>
 <% @result.each do |row| %>
   <div class="problem">
       <a href="/problems/<%= row["id"] %>">  <%= row["id"] %>.<%= row["title"] %> <% row["level"].to_i.times do %>★<% end %><% (5-row["level"].to_i).times do %>☆<% end %></a>
