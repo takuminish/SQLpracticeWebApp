@@ -72,12 +72,12 @@ class SQLApplication < Sinatra::Base
       @error = 'SQL文が間違っています。'
     end
       
-    unless validation_sql(params["sqlquery"])
+    unless validation_sql(params[:sqlquery])
       @error = "SELECT文以外は使えません。"
       erb :problem
     else
       begin
-        result = sql_client.query(params["sqlquery"])
+        result = sql_client.query(params[:sqlquery])
         @player_column = []
         @player_rows = []
         result.each do |row| 
