@@ -28,6 +28,7 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rake (12.3.2)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -46,6 +47,9 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.5)
       tilt (~> 2.0)
+    sinatra-activerecord (2.0.13)
+      activerecord (>= 3.2)
+      sinatra (>= 1.0)
     sinatra-contrib (2.0.5)
       backports (>= 2.8.2)
       multi_json
@@ -67,8 +71,10 @@ DEPENDENCIES
   dotenv
   mysql2
   rack-test
+  rake
   rspec
   sinatra
+  sinatra-activerecord
   sinatra-contrib
   sqlite3
 
