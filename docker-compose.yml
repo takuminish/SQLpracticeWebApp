@@ -3,13 +3,11 @@ version: "3"
 services:
   web:
     build: .
-    volumes:
-      - .:/app
     ports:
       - "4567:4567"
     depends_on:
       - db
-    command: bundle exec rackup -p 4567
+    command: root/.rbenv/shims/bundle exec rackup -p 4567
 
   db:
     image: mysql:latest

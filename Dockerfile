@@ -19,3 +19,7 @@ RUN rbenv global 2.6.0
 
 RUN /root/.rbenv/shims/ruby -v
 RUN /root/.rbenv/shims/gem install bundler
+
+COPY . /app
+WORKDIR /app
+RUN /root/.rbenv/shims/bundle install
