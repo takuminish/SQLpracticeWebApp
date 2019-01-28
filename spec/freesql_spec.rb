@@ -6,8 +6,11 @@ describe 'freesqlページのテスト' do
     SQLApplication
   end
 
-  it 'トップページにアクセスできる' do
+  it '/freesqlにアクセスできる' do
     get '/freesql'
+    p last_response.title
     expect(last_response).to be_ok
   end
+
+  
 end
