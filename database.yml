@@ -1,13 +1,22 @@
-development:
-  adapter: sqlite3
-  database: sqlprac.db
-production:
+default:
   adapter: mysql2
   encoding: utf8
   reconnect: false
   database: sqlapps
   pool: 5
   username: root
-  password:
+  password: 
   host: db
   port: 3306
+
+development:
+  <<:
+  database: sqlapps_development
+
+test:
+  <<:
+  database: sqlapps_development
+
+production:
+  <<:
+  database: sqlapps_production
