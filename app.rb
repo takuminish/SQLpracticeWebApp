@@ -1,16 +1,18 @@
 # coding: utf-8
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sinatra/activerecord'
 require 'mysql2'
 require 'dotenv'
 require 'yaml'
 require 'erb'
+require './models/problem.rb'
 
 class SQLApplication < Sinatra::Base
 
   Dotenv.load
   yaml_file = File.read("./database.yml")
-  sql_client = Mysql2::Client.new(YAML.load(ERB.new(yaml_file).result))
+  ActiveRecord::Base.configurations = YAML.load(ERB.new(yaml_file).result))
  
   get '/' do
     erb :index
