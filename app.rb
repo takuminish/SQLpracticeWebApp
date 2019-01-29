@@ -6,7 +6,8 @@ require 'mysql2'
 require 'dotenv'
 require 'yaml'
 require 'erb'
-require './models/problem.rb'
+require './model/problem.rb'
+require './model/book.rb'
 
 class SQLApplication < Sinatra::Base
 
@@ -16,72 +17,61 @@ class SQLApplication < Sinatra::Base
 
   get '/problems' do
     @result = Problem.all
+    @columns = Problem.columns
     p @result
+    p @columns
     erb :problems
   end
-=begin
-  get '/problems/:id' do
-    @id=params[:id]
-    @result = Problem.find_by(params[@id])
-    
-    
 
-    begin
-      @result = sql_client.prepare(query).execute(params[:id])
-      @result.each do |a|
-        @problem = a
-      end
-      answer = sql_client.query(@problem["answer"])
+  get '/problems/:id' do
+    @id = params[:id]
+    @problem = Problem.find_by(params[@id])
+
+    @answer_column = []
+    Problem.columns.each do |col|
+      @answer_column << col.name
+    end
+
+    answer = ActiveRecord::Base.connection.select_all(@problem["answer"]).to_hash
       @answer_column = []
       @answer_rows = []
       answer.each do |row| 
         @answer_column = row.keys
         @answer_rows << row.values
       end
-
-    rescue
-      @error = 'SQL文が間違っています。'
-    end
-
+     
     erb :problem
     
   end
 
   post '/problems/:id' do
-    @id = params[:id]
+        @id = params[:id]
+    @problem = Problem.find_by(params[@id])
 
-    begin
-      query = "select * from Problems where id=?"
+    @answer_column = []
+    Problem.columns.each do |col|
+      @answer_column << col.name
+    end
 
-      @result = sql_client.prepare(query).execute(params[:id])
-      @result.each do |a|
-        @problem = a
-      end
-      answer = sql_client.query(@problem["answer"])
+    answer = ActiveRecord::Base.connection.select_all(@problem["answer"]).to_hash
       @answer_column = []
       @answer_rows = []
       answer.each do |row| 
         @answer_column = row.keys
         @answer_rows << row.values
       end
-    rescue
-      @error = 'SQL文が間違っています。'
-    end
-      
+          
     unless validation_sql(params[:sqlquery])
       @error = "SELECT文以外は使えません。"
       erb :problem
     else
-      begin
-        result = sql_client.query(params[:sqlquery])
-        @player_column = []
-        @player_rows = []
-        result.each do |row| 
-          @player_column = row.keys
-          @player_rows << row.values
-        end
-      rescue
-        @error = 'SQL文が間違っています。'
+      result = ActiveRecord::Base.connection.select_all(params[:sqlquery]).to_hash
+      @player_column = []
+      @player_rows = []
+
+      result.each do |row| 
+        @player_column = row.keys
+        @player_rows << row.values
       end
     end
     unless @params[:correct].nil?
@@ -95,7 +85,7 @@ class SQLApplication < Sinatra::Base
     end
     erb :problem
   end
-  
+=begin
   get '/freesql' do
     query = "select * from Aqours"
     begin
@@ -137,7 +127,7 @@ class SQLApplication < Sinatra::Base
     end
     erb :freesql
   end
-
+=end
   def validation_sql(query) 
     return false if /.*insert.*/i === query
     return false if /.*delete.*/i === query
@@ -156,6 +146,6 @@ class SQLApplication < Sinatra::Base
      
      return false
   end
-=end
+
 end
 
