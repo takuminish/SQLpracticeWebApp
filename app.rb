@@ -85,20 +85,17 @@ class SQLApplication < Sinatra::Base
     end
     erb :problem
   end
-=begin
+
   get '/freesql' do
-    query = "select * from Aqours"
-    begin
-      result = sql_client.query(query)
-      @column_name = []
-      @rows = []
-      result.each do |row| 
-        @column_name = row.keys
-        @rows << row.values
-      end
-    rescue
-      @error = 'SQL文が間違っています。'
+    result = ActiveRecord::Base.connection.select_all("select * from books").to_hash
+
+    @column_name = []
+    @rows = []
+    result.each do |row| 
+      @column_name = row.keys
+      @rows << row.values
     end
+
     erb :freesql
   end
 
@@ -109,25 +106,23 @@ class SQLApplication < Sinatra::Base
       erb :freesql
 
     else
-      begin
-        unless validation_sql(query)
-          @error = "SELECT文以外は使えません。"
-          return
-        end
-        result = sql_client.query(query)
-        @column_name = []
-        @rows = []
-        result.each do |row| 
-          @column_name = row.keys
-          @rows << row.values
-        end
-      rescue
-        @error = 'SQL文が間違っています。'
+      unless validation_sql(query)
+        @error = "SELECT文以外は使えません。"
+         erb :freesql
+        return
+      end
+      result = ActiveRecord::Base.connection.select_all("select * from books").to_hash
+      @column_name = []
+      @rows = []
+      result.each do |row| 
+        @column_name = row.keys
+        @rows << row.values
       end
     end
+    
     erb :freesql
   end
-=end
+
   def validation_sql(query) 
     return false if /.*insert.*/i === query
     return false if /.*delete.*/i === query
