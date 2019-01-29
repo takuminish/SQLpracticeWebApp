@@ -6,8 +6,8 @@ require 'mysql2'
 require 'dotenv'
 require 'yaml'
 require 'erb'
-require './model/problem.rb'
-require './model/book.rb'
+require './models/problem.rb'
+require './models/book.rb'
 
 class SQLApplication < Sinatra::Base
 
