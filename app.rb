@@ -10,27 +10,21 @@ require './models/problem.rb'
 
 class SQLApplication < Sinatra::Base
 
-  Dotenv.load
-  yaml_file = File.read("./database.yml")
-  ActiveRecord::Base.configurations = YAML.load(ERB.new(yaml_file).result))
- 
   get '/' do
     erb :index
   end
 
   get '/problems' do
-    query = "select * from Problems"
-    begin
-      @result = sql_client.query(query)
-    rescue
-      @error = 'SQL文が間違っています。'
-    end
+    @result = Problem.all
+    p @result
     erb :problems
   end
-
+=begin
   get '/problems/:id' do
-    query = "select * from Problems where id=?"
     @id=params[:id]
+    @result = Problem.find_by(params[@id])
+    
+    
 
     begin
       @result = sql_client.prepare(query).execute(params[:id])
@@ -162,5 +156,6 @@ class SQLApplication < Sinatra::Base
      
      return false
   end
-    
+=end
 end
+

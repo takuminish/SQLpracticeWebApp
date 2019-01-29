@@ -1,18 +1,14 @@
-default:
+development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: sqlapps
+  database: sqlapp_development
   pool: 5
-  username: root
-  password: 
-  host: db
-  port: 3306
-
-development:
-  <<:
-  database: sqlapps_development
-
+#  username: <%= ENV["MYSQL_USERNAME"] %>
+#  password: <%= ENV["MYSQL_PASSWORD"] %>
+  username: sqlapp
+  password: sqlappsqlapp
+  host: localhost
 test:
   <<:
   database: sqlapps_development

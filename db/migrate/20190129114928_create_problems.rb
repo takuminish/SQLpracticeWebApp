@@ -4,7 +4,7 @@ class CreateProblems < ActiveRecord::Migration[5.2]
       t.string :title
       t.string :statement
       t.string :answer
-      t.int :level
+      t.integer :level
       t.timestamps
     end
   end
