@@ -5,16 +5,18 @@ services:
     build: .
     ports:
       - "4567:4567"
-    command: bundle exec rackup -p 4567
-    depends_on:
+    tty: true
+#    command: bundle exec rackup -p 4567
+    links:
       - db
 
   db:
-    image: mysql:latest
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: "sqlapp_development"
-      MYSQL_USER: "root"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     ports:
       - "3306:3306"
