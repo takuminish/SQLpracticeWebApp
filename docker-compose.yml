@@ -10,9 +10,8 @@ services:
     tty: true
     command: >
       bash -c 'sh ./entrypoint.sh &&
-      bundle exec rake db:migrate &&
-      RACK_ENV=development &&
-      bundle exec rackup -o 0.0.0.0 -p 4567'
+      APP_ENV=development bundle exec rake db:migrate &&
+      APP_ENV=development bundle exec rackup -o 0.0.0.0 -p 4567'
     depends_on:
       - db
 

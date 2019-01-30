@@ -10,14 +10,12 @@ services:
     tty: true
     command: >
       bash -c 'sh ./entrypoint.sh &&
-      RACK_ENV=test &&
-      bundle exec rake db:migrate &&
-      APP_ENV=test &&
-      bundle exec rspec ./spec'
+      APP_ENV=test bundle exec rake db:migrate &&
+      APP_ENV=test bundle exec rspec ./spec'
     depends_on:
       - db
 
-  db:
+  test-db:
     image: mysql:5.7
     environment:
       MYSQL_DATABASE: "sqlapp_test"
