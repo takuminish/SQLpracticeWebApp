@@ -2,7 +2,9 @@ version: "3"
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile_Sinatra
     ports:
       - "4567:4567"
     tty: true
