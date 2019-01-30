@@ -1,6 +1,6 @@
 #!/bin/bash
 
-until mysqladmin ping -h db --silent; do
+until mysqladmin ping -h $1 --silent; do
     echo 'waiting mysql'
     sleep 5
 done

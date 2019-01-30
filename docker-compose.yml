@@ -9,13 +9,13 @@ services:
       - "4567:4567"
     tty: true
     command: >
-      bash -c 'sh ./entrypoint.sh &&
+      bash -c 'sh ./entrypoint.sh development-db &&
       APP_ENV=development bundle exec rake db:migrate &&
       APP_ENV=development bundle exec rackup -o 0.0.0.0 -p 4567'
     depends_on:
-      - db
+      - development-db
 
-  db:
+  development-db:
     image: mysql:5.7
     environment:
       MYSQL_DATABASE: "sqlapp_development"

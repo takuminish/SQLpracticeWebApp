@@ -9,11 +9,11 @@ services:
       - "4567:4567"
     tty: true
     command: >
-      bash -c 'sh ./entrypoint.sh &&
+      bash -c 'sh ./entrypoint.sh test-db &&
       APP_ENV=test bundle exec rake db:migrate &&
       APP_ENV=test bundle exec rspec ./spec'
     depends_on:
-      - db
+      - test-db
 
   test-db:
     image: mysql:5.7
