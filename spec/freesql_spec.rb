@@ -8,7 +8,6 @@ describe 'freesqlページのテスト' do
 
   it '/freesqlにアクセスできる' do
     get '/freesql'
-    p last_response.title
     expect(last_response).to be_ok
   end
 

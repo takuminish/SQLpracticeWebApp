@@ -1,3 +1,3 @@
 require './app.rb'
-set :environment, :development
+set :environment, :test
 run SQLApplication
