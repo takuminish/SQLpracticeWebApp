@@ -18,8 +18,6 @@ class SQLApplication < Sinatra::Base
   get '/problems' do
     @result = Problem.all
     @columns = Problem.columns
-    p @result
-    p @columns
     erb :problems
   end
 
