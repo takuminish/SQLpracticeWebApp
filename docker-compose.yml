@@ -6,8 +6,11 @@ services:
     ports:
       - "4567:4567"
     tty: true
-#    command: bundle exec rackup -p 4567
-    links:
+    command: >
+      bash -c 'sh ./entrypoint.sh &&
+      bundle exec rake db:migrate &&
+      bundle exec rackup -o 0.0.0.0 -p 4567'
+    depends_on:
       - db
 
   db:
