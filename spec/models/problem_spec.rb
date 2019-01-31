@@ -7,18 +7,6 @@ describe "Problemモデルのテスト" do
     SQLApplication
   end
 
-  it 'idがnullだったら登録できない' do
-    problem = Problem.new(id: nil,title: "test", statement: "test", answer: "test", level: 1)
-    expect(problem).not_to be_valid
-  end
-
-  it 'idが重複していたら登録できない' do
-    problem = Problem.create(id: 1,title: "test", statement: "test", answer: "test", level: 1)
-    problem.save
-    problem = Problem.new(id: 1,title: "test", statement: "test", answer: "test", level: 1)
-    expect(problem).not_to be_valid
-  end
-
   it 'statementがnullだったら登録できない' do
     problem = Problem.new(id: 1,title: "test", statement: nil, answer: "test", level: 1)
     expect(problem).not_to be_valid
