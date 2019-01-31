@@ -23,7 +23,7 @@ class SQLApplication < Sinatra::Base
 
   get '/problems/:id' do
     @id = params[:id]
-    @problem = Problem.find(params[@id])
+    @problem = Problem.find(@id)
 
     @answer_column = []
     Problem.columns.each do |col|
@@ -44,7 +44,7 @@ class SQLApplication < Sinatra::Base
 
   post '/problems/:id' do
         @id = params[:id]
-    @problem = Problem.find_by(params[@id])
+    @problem = Problem.find(@id)
 
     @answer_column = []
     Problem.columns.each do |col|
